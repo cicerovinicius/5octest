@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Colors JSON</title>
+    <style>
+        #colorsTable {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+        }
+
+        #colorsTable td, #colorsTable th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #colorsTable th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #2196F3;
+            color: white;
+        }
+
+        #colorsTable tr:nth-child(even){ background-color: #f2f2f2; }
+        #colorsTable tr:hover { background-color: #ddd; }
+
+        #colorsTable .color-block{
+            border: 1px solid #333;
+            display: block;
+            height: 15px;
+            min-height: 15px;
+            width: 15px;
+            min-width: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <table cellspacing="0" id="colorsTable">
+            <thead>
+                <th>Color</th>
+                <th>HEX</th>
+                <th>#</th>
+            </thead>
+            <tbody id="colors"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function loadColors (){
+            const request = new XMLHttpRequest();
+
+            request.open('get', 'https://gist.githubusercontent.com/hdngr/bb548a2b55e8a53f06ec/raw/fea108687ff095e1a8a6b31bcc1e88e8a45551e2/colors.json');
+            request.onload = () => {
+                const json = JSON.parse(request.responseText);
+                document.getElementById('colors').innerHTML = showColors(json);
+            }
+            request.send(null);
+        }
+
+        function showColors(data){
+            let table = '';
+
+            for (let i = 0; i < data.length; i++) {
+                let row = '<tr>'
+                        + '<td>' + data[i].name + '</td>'
+                        + '<td>' + data[i].hex + '</td>'
+                        + '<td><span class="color-block" style="background-color:' + data[i].hex + '"></span></td>'
+                        + '</tr>';
+                table += row;
+            }
+            return table;
+        }
+
+        loadColors();
+    </script>
+</body>
+</html>
