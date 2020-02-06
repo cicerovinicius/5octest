@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Colors JSON</title>
+    <style>
+        #colorsTable {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+        }
+
+        #colorsTable td, #colorsTable th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #colorsTable th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #2196F3;
+            color: white;
+        }
+
+        #colorsTable tr:nth-child(even){ background-color: #f2f2f2; }
+        #colorsTable tr:hover { background-color: #ddd; }
+
+        #colorsTable .color-block{
+            border: 1px solid #333;
+            display: block;
+            height: 15px;
+            min-height: 15px;
+            width: 15px;
+            min-width: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <table cellspacing="0" id="colorsTable">
+            <thead>
+                <th>Color</th>
+                <th>HEX</th>
+                <th>#</th>
+            </thead>
+            <tbody id="colors"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function colorsList(json){
+            let table = '';
+
+            json.forEach(row => {
+                table += '<tr>';
+                table += '<td>' + row.name + '</td>'
+                       + '<td>' + row.hex + '</td>'
+                       + '<td><span class="color-block" style="background-color:' + row.hex + '"></span></td>';
+                table += '</tr>';       
+            });
+            return table;
+        }
+
+        const colors = [ 
+            {"name": "Yellow", "hex": "#FFFF00"}, 
+            {"name": "Green Lime","hex": "#80FF00"}, 
+            {"name": "Green","hex": "#00FF00"},
+            {"name": "Blue Sea","hex": "#00FFFF"},
+            {"name": "Blue","hex": "#0000FF"},
+            {"name": "Lilas","hex": "#8000FF"},
+            {"name": "Purple","hex": "#FF00FF"},
+            {"name": "Pink","hex": "#FF0080"},
+            {"name": "Red","hex": "#FF0000"},
+            {"name": "Orange","hex": "#FF8000"},
+            {"name": "White","hex": "#FFFFFF"},
+            {"name": "Gray","hex": "#8C8C8C"},
+            {"name": "Black","hex": "#000000"}
+        ];
+
+        document.getElementById('colors').innerHTML = colorsList(colors);
+    </script>
+</body>
+</html>
